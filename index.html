@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="styles.css">
+        <script src="main.js"></script>
+        <script>
+
+            var   moveclick = 0;
+
+            function start(){
+
+
+
+                var bord = document.getElementById("border");
+                bord.innerHTML = "";
+
+                for(var i = 1 ; i < 10 ; i++){
+                    var box = document.createElement("div");
+                    box.innerHTML = "^";
+                    box.id = "box-" + i;
+                    box.className= "box";
+
+                    box.addEventListener('click', function(){
+
+                        check(this);
+
+                    });
+                    bord.appendChild(box);
+                    if(i%3==0){
+                        var br = document.createElement("br");
+                        bord.appendChild(br);
+                    }
+
+
+                }
+            }
+
+
+            function check(element){
+                strid = element.id;
+                splitid = strid.split("-");
+                numid = Number(splitid[1]);
+
+                if(moveclick%2 ==0 ){
+
+                    element.innerHTML ="X";
+
+                    moveclick++;
+                }else{
+
+                    element.innerHTML = "O";
+                    moveclick++;
+                }
+                if(moveclick > 4){
+                    switch(numid){
+                        case 1:
+                            checkSet(1,2,3);
+                            checkSet(1,4,7);
+                            checkSet(1,5,9);
+                            break;
+                        case 2:
+                            checkSet(1,2,3);
+                            checkSet(2,5,8);
+                            break;
+                        case 3:
+                            checkSet(1,2,3);
+                            checkSet(3,5,7);
+                            checkSet(3,6,9);
+                            break;
+                        case 4:
+                            checkSet(4,5,6);
+                            checkSet(1,4,7);
+                            break;
+                        case 5:
+                            checkSet(1,5,9);
+                            checkSet(3,5,7);
+                            checkSet(4,5,6);
+                            checkSet(2,5,8);
+                            break;
+                        case 6:
+                            checkSet(4,5,6);
+                            checkSet(3,6,9);
+                            break;
+                        case 7:
+                            checkSet(1,4,7);
+                            checkSet(3,5,7);
+                            checkSet(8,9,7);
+                            break;
+                        case 8:
+                            checkSet(8,9,7);
+                            checkSet(8,5,2);
+                            break;
+                        case 9:
+                            checkSet(3,6,9);
+                            checkSet(7,8,9);
+                            checkSet(1,5,9);
+                            break;
+                    }
+                }
+            }
+
+            function checkSet(id1 , id2 , id3){
+                
+                var fullid1 = "box-"+ id1; 
+                var fullid2 = "box-"+id2;
+                var fullid3 = "box-"+id3;
+               
+                var text1  = document.getElementById(fullid1).innerHTML;
+                var text2  = document.getElementById(fullid2).innerHTML;
+                var text3  = document.getElementById(fullid3).innerHTML;
+                
+                if(text1 == text2 && text1 == text3){ 
+                document.getElementById(fullid1).style.backgroundColor = "red";
+                 document.getElementById(fullid2).style.backgroundColor = "red";
+                 document.getElementById(fullid3).style.backgroundColor = "red";
+            
+                }
+
+
+            }
+
+
+        </script>
+        <style>
+            .box{
+                height: 50px;
+                width: 50px;
+                border: 1px solid black;
+                display: inline-block;
+                height: 100px;
+                width: 100px;
+                text-align: center;
+                font-size: 50px;
+            }
+
+        </style>
+
+
+    </head>
+    <body>
+        <button onclick="start()">start</button>
+
+        <div id="border"></div>
+
+
+    </body>
+</html>
